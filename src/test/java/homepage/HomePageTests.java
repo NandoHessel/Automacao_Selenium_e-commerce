@@ -9,10 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HomePageTests extends BaseTests {
-
-    SigninPage signinPage = new SigninPage(driver);
-    //RegisterPage registerPage = new RegisterPage(driver);
-
+    
     //VALIDAÇÕES BÁSICAS
     @Test
     public void testContarProdutos_oitoProdutosDiferentes() {
@@ -53,6 +50,16 @@ public class HomePageTests extends BaseTests {
         signinPage.acessoDeUsuario();
         registerPage.registroDeUsuario();
     }
+
+    //Teste de Login
+    @Test
+    public void testLoginComSucesso_UsuarioLogado() {
+        homePage.cadastroDeUsuário();
+        signinPage.preencherDadosDoUsuarioEAcesso();
+
+        assertThat(signinPage.estaLogado("Fernando Hessel"), is(true));
+    }
+
 
 
 }
