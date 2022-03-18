@@ -6,11 +6,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.RegisterPage;
+import pages.SigninPage;
 
 public class BaseTests {
 
-    private static WebDriver driver;
+    public static WebDriver driver;
     protected HomePage homePage;
+    protected  SigninPage signinPage;
+    protected RegisterPage registerPage;
 
     @BeforeAll
     public static void inicializar() {
@@ -22,11 +26,13 @@ public class BaseTests {
     public void carregarPaginaInicial() {
         driver.get("https://marcelodebittencourt.com/demoprestashop/");
         homePage = new HomePage(driver);
+        signinPage = new SigninPage(driver);
+        registerPage = new RegisterPage(driver);
     }
 
-    @AfterAll
-    public static void finalizar() {
-        driver.quit();
-    }
+    //@AfterAll
+    //public static void finalizar() {
+      //  driver.quit();
+    //}
 
 }

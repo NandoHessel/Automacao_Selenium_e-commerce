@@ -18,6 +18,9 @@ public class HomePage {
     private  By descricoesDosProdutos = By.cssSelector(".product-description a");
     private By precoDosProdutos = By.cssSelector(".price");
 
+    private By signin = By.cssSelector("a[title=\"Log in to your customer account");
+
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     } //construtor
@@ -51,4 +54,13 @@ public class HomePage {
         driver.findElements(descricoesDosProdutos).get(indice).click();
         return new ProdutoPage(driver);
     }
+
+    public SigninPage cadastroDeUsuário() {
+        driver.findElement(signin).click();
+        return new SigninPage(driver);
+    }
+
+
+
+
 }

@@ -3,11 +3,15 @@ package homepage;
 import base.BaseTests;
 import org.junit.jupiter.api.Test;
 import pages.ProdutoPage;
+import pages.SigninPage;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HomePageTests extends BaseTests {
+
+    SigninPage signinPage = new SigninPage(driver);
+    //RegisterPage registerPage = new RegisterPage(driver);
 
     //VALIDAÇÕES BÁSICAS
     @Test
@@ -40,7 +44,15 @@ public class HomePageTests extends BaseTests {
 
         assertThat(nomeProduto_HomePage.toLowerCase(), is(nomeProduto_ProdutoPage.toLowerCase()));
         assertThat(precoProduto_HomePAge, is(precoProduto_ProdutoPage));
-
     }
+
+    //Cadastro de usuário
+    @Test
+    public void testCadastroDeNovoUsuário() {
+        homePage.cadastroDeUsuário();
+        signinPage.acessoDeUsuario();
+        registerPage.registroDeUsuario();
+    }
+
 
 }
