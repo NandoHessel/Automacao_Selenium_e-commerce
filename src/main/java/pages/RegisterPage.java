@@ -5,15 +5,10 @@ import org.openqa.selenium.WebDriver;
 
 public class RegisterPage {
 
-    String fisrtName = "Fernando";
-    String lastName = "Hessel";
-    String email = "fernando@email.com";
-    String password = "password";
-    String birthday = "02/18/1993";
-
     private WebDriver driver;
 
-    private By socialTitle = By.cssSelector("input[name=\"id_gender\"][value=\"1\"]");
+    private By masculino = By.cssSelector("input[name=\"id_gender\"][value=\"1\"]");
+    private By feminimo = By.cssSelector("input[name=\"id_gender\"][value=\"2\"]");
     private By nome = By.cssSelector("input[name=\"firstname\"]");
     private By sobrenome = By.cssSelector("input[name=\"lastname\"]");
     private By e_mail = By.cssSelector("input[name=\"email\"]");
@@ -27,15 +22,28 @@ public class RegisterPage {
         this.driver = driver;
     } //construtor
 
-    public void registroDeUsuario() {
-        driver.findElement(socialTitle).click();
-
-        driver.findElement(nome).sendKeys(fisrtName);
-        driver.findElement(sobrenome).sendKeys(lastName);
-        driver.findElement(e_mail).sendKeys(email);
-        driver.findElement(senha).sendKeys(password);
-        driver.findElement(nascimento).sendKeys(birthday);
-
+    public void generoMasculinoDeUsuario() {
+        driver.findElement(masculino).click();
+    }
+    public void generoFeminimoDeUsuario() {
+        driver.findElement(feminimo).click();
+    }
+    public void nomeDeUsuario(String texto) {
+        driver.findElement(nome).sendKeys(texto);
+        }
+    public void sobrenomeDeUsuario(String texto) {
+        driver.findElement(sobrenome).sendKeys(texto);
+    }
+    public void emailDeUsuario(String texto) {
+        driver.findElement(e_mail).sendKeys(texto);
+    }
+    public void senhaDeUsuario(String texto) {
+        driver.findElement(senha).sendKeys(texto);
+    }
+    public void anoDeNascimentoDeUsuario(String texto) {
+        driver.findElement(nascimento).sendKeys(texto);
+    }
+    public void finalizarCadastro() {
         driver.findElement(checkbox).click();
         driver.findElement(save).click();
     }

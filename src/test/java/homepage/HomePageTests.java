@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HomePageTests extends BaseTests {
-    
+
     //VALIDAÇÕES BÁSICAS
     @Test
     public void testContarProdutos_oitoProdutosDiferentes() {
@@ -46,20 +46,36 @@ public class HomePageTests extends BaseTests {
     //Cadastro de usuário
     @Test
     public void testCadastroDeNovoUsuário() {
+        //abre a página de acesso
         homePage.cadastroDeUsuário();
+        //abre a página de cadastro de usuário
         signinPage.acessoDeUsuario();
-        registerPage.registroDeUsuario();
+        //seleciona o gênero do usuário. M ou F
+        String genero = "F";
+        if (genero.toLowerCase().contains("m")) {
+            registerPage.generoMasculinoDeUsuario();
+        } else {
+            registerPage.generoFeminimoDeUsuario();
+        }
+        //informa os dados do usuário. Preencher no parâmetro
+        registerPage.nomeDeUsuario("Gessica");
+        registerPage.sobrenomeDeUsuario("de Macedo");
+        registerPage.emailDeUsuario("gessica@email.com");
+        registerPage.senhaDeUsuario("gessica");
+        //mês/dia/ano
+        registerPage.anoDeNascimentoDeUsuario("06/18/1992");
+        registerPage.finalizarCadastro();
+
     }
 
     //Teste de Login
     @Test
     public void testLoginComSucesso_UsuarioLogado() {
         homePage.cadastroDeUsuário();
-        signinPage.preencherDadosDoUsuarioEAcesso();
-
-        assertThat(signinPage.estaLogado("Fernando Hessel"), is(true));
+        signinPage.emailAcesso("gessica@email.com");
+        signinPage.senhaAcesso("gessica");
+        signinPage.loginAcesso();
+        //validação
+        assertThat(signinPage.estaLogado("Gessica de Macedo"), is(true));
     }
-
-
-
 }

@@ -14,9 +14,6 @@ public class SigninPage {
     private By btnSignIn = By.id("submit-login");
     private By usuarioLogado = By.cssSelector("#_desktop_user_info span.hidden-sm-down");
 
-    String email = "fernando@email.com";
-    String password = "password";
-
     public SigninPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -26,10 +23,13 @@ public class SigninPage {
         return new RegisterPage(driver);
     }
 
-    public void preencherDadosDoUsuarioEAcesso() {
-        driver.findElement(emailAcesso).sendKeys(email);
-        driver.findElement(senhaAcesso).sendKeys(password);
-
+    public void emailAcesso(String texto) {
+        driver.findElement(emailAcesso).sendKeys(texto);
+    }
+    public void senhaAcesso(String texto) {
+        driver.findElement(senhaAcesso).sendKeys(texto);
+    }
+    public void loginAcesso() {
         driver.findElement(btnSignIn).click();
     }
 
