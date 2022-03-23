@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import pages.ProdutoPage;
 import pages.SigninPage;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -51,19 +53,19 @@ public class HomePageTests extends BaseTests {
         //abre a página de cadastro de usuário
         signinPage.acessoDeUsuario();
         //seleciona o gênero do usuário. M ou F
-        String genero = "F";
+        String genero = "";
         if (genero.toLowerCase().contains("m")) {
             registerPage.generoMasculinoDeUsuario();
         } else {
             registerPage.generoFeminimoDeUsuario();
         }
         //informa os dados do usuário. Preencher no parâmetro
-        registerPage.nomeDeUsuario("Gessica");
-        registerPage.sobrenomeDeUsuario("de Macedo");
-        registerPage.emailDeUsuario("gessica@email.com");
-        registerPage.senhaDeUsuario("gessica");
+        registerPage.nomeDeUsuario("");
+        registerPage.sobrenomeDeUsuario("");
+        registerPage.emailDeUsuario("");
+        registerPage.senhaDeUsuario("");
         //mês/dia/ano
-        registerPage.anoDeNascimentoDeUsuario("06/18/1992");
+        registerPage.anoDeNascimentoDeUsuario("");
         registerPage.finalizarCadastro();
 
     }
@@ -72,10 +74,47 @@ public class HomePageTests extends BaseTests {
     @Test
     public void testLoginComSucesso_UsuarioLogado() {
         homePage.cadastroDeUsuário();
-        signinPage.emailAcesso("gessica@email.com");
-        signinPage.senhaAcesso("gessica");
+        signinPage.emailAcesso("fernando@email.com");
+        signinPage.senhaAcesso("password");
         signinPage.loginAcesso();
         //validação
-        assertThat(signinPage.estaLogado("Gessica de Macedo"), is(true));
+        assertThat(signinPage.estaLogado("Fernando Hessel"), is(true));
+
+        //após a validação, volta para a tela inicial
+        carregarPaginaInicial();
+    }
+
+    //adicionando itens ao carrinho após alterar características e quantidade
+    @Test
+    public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
+        //pré-condição: usuário logado
+        if (!signinPage.estaLogado("Fernando Hessel")) {
+            testLoginComSucesso_UsuarioLogado();
+        }
+
+        //selecionando produto
+        testVAlidarDetalhesDoProduto_DescricaoEValorIguais();
+        
+        //selecionar tamanho
+        List<String> listaOpcoes = produtoPage.obterOpecoesSelecionadas();
+        System.out.println(listaOpcoes.get(0));
+        System.out.println("Tamanho da lista: " + listaOpcoes.size());
+
+        produtoPage.selecionarOpcaoDropDown("M");
+        listaOpcoes = produtoPage.obterOpecoesSelecionadas();
+        System.out.println(listaOpcoes.get(0));
+        System.out.println("Tamanho da lista: " + listaOpcoes.size());
+
+        //selecionar cor
+        String corSelecionada = "";
+        if (corSelecionada.toLowerCase().contains("preta")){
+            produtoPage.selecionarCorPreta();
+        }
+
+        //selecionar quantidade
+        produtoPage.alterarQuantidade(2);
+
+        //adicionar no carrinho
+        produtoPage.adcionarAoCarrinho();
     }
 }
