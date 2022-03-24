@@ -17,6 +17,7 @@ public class ModalProdutoPage {
     private By produtoSelecionado = By.cssSelector("h6[class=\"h6 product-name\"]");
     private By precoProduto = By.cssSelector("div.modal-body p.product-price");
     private By listaValoresInformados = By.cssSelector("div.divide-right .col-md-6:nth-child(2) span strong");
+    private By subtotal = By.cssSelector(".cart-content p:nth-child(2) span.value");
 
 
     public ModalProdutoPage (WebDriver driver) {
@@ -34,6 +35,14 @@ public class ModalProdutoPage {
         return driver.findElement(mensagemProdutoAdicionado).getText();
     }
 
+    public String obterNomeDoProduto() {
+        return driver.findElement(produtoSelecionado).getText();
+    }
+
+    public String obterPrecoDoProduto() {
+        return driver.findElement(precoProduto).getText();
+    }
+
     public String obterTamanhoProduto() {
         return driver.findElements(listaValoresInformados).get(0).getText();
     }
@@ -44,5 +53,9 @@ public class ModalProdutoPage {
 
     public String obterQuantidadeProduto() {
         return driver.findElements(listaValoresInformados).get(2).getText();
+    }
+
+    public String obterSubtotal() {
+        return driver.findElement(subtotal).getText();
     }
 }

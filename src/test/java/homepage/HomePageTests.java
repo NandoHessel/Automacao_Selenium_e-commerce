@@ -89,9 +89,12 @@ public class HomePageTests extends BaseTests {
     @Test
     public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
 
+        var nomeProduto = "Hummingbird printed t-shirt";
+        var precoProduto = 19.12 ;
         var tamanhoProduto = "M";
         var corProduto = "Black";
         var quantidadeProduto = 2;
+        var subtotal = quantidadeProduto * precoProduto;
 
         //pré-condição: usuário logado
         if (!signinPage.estaLogado("Fernando Hessel")) {
@@ -120,8 +123,21 @@ public class HomePageTests extends BaseTests {
         assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado().
                 endsWith("Product successfully added to your shopping cart"));
         //validar se as características são as mesmas
+        assertThat(modalProdutoPage.obterNomeDoProduto().toLowerCase(), is(nomeProduto.toLowerCase()));
+
+        String precoProdutoRetornado = modalProdutoPage.obterPrecoDoProduto();
+        precoProdutoRetornado = precoProdutoRetornado.replace("$","");
+        Double preco_produto = Double.parseDouble(precoProdutoRetornado);
+        assertThat(preco_produto, is(precoProduto));
+
         assertThat(modalProdutoPage.obterTamanhoProduto(), is(tamanhoProduto));
         assertThat(modalProdutoPage.obterCorProduto(), is(corProduto));
         assertThat(modalProdutoPage.obterQuantidadeProduto(), is(Integer.toString(quantidadeProduto)));
+
+        String subtotalProdutoRetornado = modalProdutoPage.obterSubtotal();
+        subtotalProdutoRetornado = subtotalProdutoRetornado.replace("$","");
+        Double subtotal_Produto = Double.parseDouble(subtotalProdutoRetornado);
+        assertThat(subtotal_Produto, is(subtotal));
+
     }
 }
