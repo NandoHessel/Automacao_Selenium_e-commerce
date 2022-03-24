@@ -1,14 +1,11 @@
 package base;
 
-import pages.HomePage;
+import pages.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.ProdutoPage;
-import pages.RegisterPage;
-import pages.SigninPage;
 
 public class BaseTests {
 
@@ -17,6 +14,7 @@ public class BaseTests {
     protected  SigninPage signinPage;
     protected RegisterPage registerPage;
     protected ProdutoPage produtoPage;
+    protected ModalProdutoPage modalProdutoPage;
 
     @BeforeAll
     public static void inicializar() {
@@ -31,6 +29,7 @@ public class BaseTests {
         signinPage = new SigninPage(driver);
         registerPage = new RegisterPage(driver);
         produtoPage = new ProdutoPage(driver);
+        modalProdutoPage = new ModalProdutoPage(driver);
     }
 
     //@AfterAll

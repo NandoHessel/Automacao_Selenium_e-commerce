@@ -59,7 +59,8 @@ public class ProdutoPage {
         driver.findElement(qtdeProduto).sendKeys(Integer.toString(qtde));
     }
 
-    public void adcionarAoCarrinho() {
+    public ModalProdutoPage adcionarAoCarrinho() {
         driver.findElement(addcarrinho).click();
+        return new ModalProdutoPage(driver);
     }
 }

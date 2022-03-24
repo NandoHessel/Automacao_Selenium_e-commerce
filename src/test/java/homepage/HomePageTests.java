@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HomePageTests extends BaseTests {
 
@@ -26,7 +27,7 @@ public class HomePageTests extends BaseTests {
         assertThat(produtosNoCarrinho, is(0));
     }
 
-    //FLUXO PADRÃO - PARTE 1
+    //FLUXO PADRÃO
     @Test
     public void testVAlidarDetalhesDoProduto_DescricaoEValorIguais() {
         int indice = 0;
@@ -87,34 +88,40 @@ public class HomePageTests extends BaseTests {
     //adicionando itens ao carrinho após alterar características e quantidade
     @Test
     public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
+
+        var tamanhoProduto = "M";
+        var corProduto = "Black";
+        var quantidadeProduto = 2;
+
         //pré-condição: usuário logado
         if (!signinPage.estaLogado("Fernando Hessel")) {
             testLoginComSucesso_UsuarioLogado();
         }
-
         //selecionando produto
         testVAlidarDetalhesDoProduto_DescricaoEValorIguais();
-        
         //selecionar tamanho
         List<String> listaOpcoes = produtoPage.obterOpecoesSelecionadas();
         System.out.println(listaOpcoes.get(0));
         System.out.println("Tamanho da lista: " + listaOpcoes.size());
 
-        produtoPage.selecionarOpcaoDropDown("M");
+        produtoPage.selecionarOpcaoDropDown(tamanhoProduto);
         listaOpcoes = produtoPage.obterOpecoesSelecionadas();
         System.out.println(listaOpcoes.get(0));
         System.out.println("Tamanho da lista: " + listaOpcoes.size());
-
         //selecionar cor
-        String corSelecionada = "";
-        if (corSelecionada.toLowerCase().contains("preta")){
+        if (corProduto.toLowerCase().contains("black")) {
             produtoPage.selecionarCorPreta();
         }
-
         //selecionar quantidade
-        produtoPage.alterarQuantidade(2);
-
+        produtoPage.alterarQuantidade(quantidadeProduto);
         //adicionar no carrinho
         produtoPage.adcionarAoCarrinho();
+        //validar se o produto foi adicionado corretamente
+        assertTrue(modalProdutoPage.obterMensagemProdutoAdicionado().
+                endsWith("Product successfully added to your shopping cart"));
+        //validar se as características são as mesmas
+        assertThat(modalProdutoPage.obterTamanhoProduto(), is(tamanhoProduto));
+        assertThat(modalProdutoPage.obterCorProduto(), is(corProduto));
+        assertThat(modalProdutoPage.obterQuantidadeProduto(), is(Integer.toString(quantidadeProduto)));
     }
 }
