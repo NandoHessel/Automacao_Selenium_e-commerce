@@ -138,6 +138,13 @@ public class HomePageTests extends BaseTests {
         subtotalProdutoRetornado = subtotalProdutoRetornado.replace("$","");
         Double subtotal_Produto = Double.parseDouble(subtotalProdutoRetornado);
         assertThat(subtotal_Produto, is(subtotal));
-
     }
-}
+
+    @Test
+    public void TestIrParaCarrinho_InformacoesPersistidas() {
+        //pré condição
+        testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
+        modalProdutoPage.clicarBotaoProceedToCheckout();
+        }
+    }
+
