@@ -4,6 +4,7 @@ import base.BaseTests;
 import org.junit.jupiter.api.Test;
 import pages.ProdutoPage;
 import pages.SigninPage;
+import util.Funcoes;
 
 import java.util.List;
 
@@ -142,9 +143,27 @@ public class HomePageTests extends BaseTests {
 
     @Test
     public void TestIrParaCarrinho_InformacoesPersistidas() {
+        //valores esperados
+
+        var esperado_nomeProduto = "Hummingbird printed t-shirt";
+        var esperado_precoProduto = 19.12;
+        var esperado_tamanhoProduto = "M";
+        var esperado_corProduto = "Black";
+        var esperado_input_quantidadeProduto = 2;
+        var esperado_subtotalProduto = esperado_precoProduto * esperado_input_quantidadeProduto;
+        funcoes = new Funcoes();
+
         //pré condição
         testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
         modalProdutoPage.clicarBotaoProceedToCheckout();
+
+        //asserções por Hamcrest
+        assertThat(carrinhoPage.obter_nomeProduto(),is(esperado_nomeProduto));
+        assertThat(funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_precoProduto()), is(esperado_precoProduto));
+        assertThat(carrinhoPage.obter_tamanhoProduto(), is(esperado_tamanhoProduto));
+        assertThat(carrinhoPage.obter_corProduto(), is(esperado_corProduto));
+        assertThat(Funcoes.removeTextoDevolveInt(carrinhoPage.obter_quantidadeProduto()), is(esperado_input_quantidadeProduto));
+        assertThat(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_subtotalProduto()), is(esperado_subtotalProduto));
         }
     }
 

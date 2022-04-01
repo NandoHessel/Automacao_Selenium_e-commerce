@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import util.Funcoes;
 
 public class BaseTests {
 
@@ -15,6 +16,7 @@ public class BaseTests {
     protected ProdutoPage produtoPage;
     protected ModalProdutoPage modalProdutoPage;
     protected CarrinhoPage carrinhoPage;
+    protected Funcoes funcoes;
 
     @BeforeAll
     public static void inicializar() {
@@ -31,6 +33,7 @@ public class BaseTests {
         produtoPage = new ProdutoPage(driver);
         modalProdutoPage = new ModalProdutoPage(driver);
         carrinhoPage = new CarrinhoPage(driver);
+        funcoes = new Funcoes();
     }
 
     //@AfterAll
