@@ -13,8 +13,7 @@ public class CarrinhoPage {
     private By corProduto = By.xpath("//div[contains(@class,'product-line-grid-body')]//div[4]/span[contains(@class,'value')]");
     private By qtdeProduto = By.cssSelector("input.js-cart-line-product-quantity");
     private By subtotalProduto = By.cssSelector("span.product-price strong");
-    private By numeroItensTotal = By.cssSelector("span.js-subtotal");
-    private By subtotalTotal = By.cssSelector("#cart-subtotal-products span.value");
+    private By botaoProceedToCheckout = By.cssSelector("a.btn-primary");
 
     public CarrinhoPage(WebDriver driver) {
         this.driver = driver;
@@ -44,6 +43,10 @@ public class CarrinhoPage {
         return driver.findElement(subtotalProduto).getText();
     }
 
+    public CheckoutPage clicarBotaoProceedToCheckout() {
+        driver.findElement(botaoProceedToCheckout).click();
+        return new CheckoutPage(driver);
 
+    }
 
 }

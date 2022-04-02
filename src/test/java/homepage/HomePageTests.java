@@ -91,7 +91,7 @@ public class HomePageTests extends BaseTests {
     public void testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso() {
 
         var nomeProduto = "Hummingbird printed t-shirt";
-        var precoProduto = 19.12 ;
+        var precoProduto = 19.12;
         var tamanhoProduto = "M";
         var corProduto = "Black";
         var quantidadeProduto = 2;
@@ -127,7 +127,7 @@ public class HomePageTests extends BaseTests {
         assertThat(modalProdutoPage.obterNomeDoProduto().toLowerCase(), is(nomeProduto.toLowerCase()));
 
         String precoProdutoRetornado = modalProdutoPage.obterPrecoDoProduto();
-        precoProdutoRetornado = precoProdutoRetornado.replace("$","");
+        precoProdutoRetornado = precoProdutoRetornado.replace("$", "");
         Double preco_produto = Double.parseDouble(precoProdutoRetornado);
         assertThat(preco_produto, is(precoProduto));
 
@@ -136,34 +136,57 @@ public class HomePageTests extends BaseTests {
         assertThat(modalProdutoPage.obterQuantidadeProduto(), is(Integer.toString(quantidadeProduto)));
 
         String subtotalProdutoRetornado = modalProdutoPage.obterSubtotal();
-        subtotalProdutoRetornado = subtotalProdutoRetornado.replace("$","");
+        subtotalProdutoRetornado = subtotalProdutoRetornado.replace("$", "");
         Double subtotal_Produto = Double.parseDouble(subtotalProdutoRetornado);
         assertThat(subtotal_Produto, is(subtotal));
     }
 
+    //finalizando ida para o carrinho
     @Test
-    public void TestIrParaCarrinho_InformacoesPersistidas() {
+    public void testIrParaCarrinho_InformacoesPersistidas() {
         //valores esperados
-
         var esperado_nomeProduto = "Hummingbird printed t-shirt";
         var esperado_precoProduto = 19.12;
         var esperado_tamanhoProduto = "M";
         var esperado_corProduto = "Black";
         var esperado_input_quantidadeProduto = 2;
         var esperado_subtotalProduto = esperado_precoProduto * esperado_input_quantidadeProduto;
-        funcoes = new Funcoes();
+        var esperado_nomeCliente = "Fernando Hessel";
 
         //pré condição
         testIncluirProdutoNoCarrinho_ProdutoIncluidoComSucesso();
         modalProdutoPage.clicarBotaoProceedToCheckout();
 
         //asserções por Hamcrest
-        assertThat(carrinhoPage.obter_nomeProduto(),is(esperado_nomeProduto));
+        assertThat(carrinhoPage.obter_nomeProduto(), is(esperado_nomeProduto));
         assertThat(funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_precoProduto()), is(esperado_precoProduto));
         assertThat(carrinhoPage.obter_tamanhoProduto(), is(esperado_tamanhoProduto));
         assertThat(carrinhoPage.obter_corProduto(), is(esperado_corProduto));
         assertThat(Funcoes.removeTextoDevolveInt(carrinhoPage.obter_quantidadeProduto()), is(esperado_input_quantidadeProduto));
         assertThat(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_subtotalProduto()), is(esperado_subtotalProduto));
-        }
+
+        carrinhoPage.clicarBotaoProceedToCheckout();
     }
+
+    //preencher dados para frete e pagamento
+    @Test
+    public void testDadosFreteEPagamento() {
+        testIrParaCarrinho_InformacoesPersistidas();
+
+        //validar informações na tela
+        assertThat(Funcoes.removeCifraoDevolveDouble(checkoutPage.obter_totalTaxaIncTotal()), is(45.24));
+        assertTrue(checkoutPage.obter_nomeCliente().startsWith("Fernando Hessel"));
+
+        checkoutPage.clicarBotaoContinueAddresses();
+
+        String shippinString = Funcoes.removeTexto(checkoutPage.obter_shippingValor(), " tax excl.");
+        Double shippingDouble = Funcoes.removeCifraoDevolveDouble(shippinString);
+
+        assertThat(shippingDouble, is(7.00));
+
+        checkoutPage.clicarContinuarShipping();
+    }
+}
+
+
 

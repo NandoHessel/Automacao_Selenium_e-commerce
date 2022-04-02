@@ -17,6 +17,7 @@ public class BaseTests {
     protected ModalProdutoPage modalProdutoPage;
     protected CarrinhoPage carrinhoPage;
     protected Funcoes funcoes;
+    protected CheckoutPage checkoutPage;
 
     @BeforeAll
     public static void inicializar() {
@@ -34,6 +35,7 @@ public class BaseTests {
         modalProdutoPage = new ModalProdutoPage(driver);
         carrinhoPage = new CarrinhoPage(driver);
         funcoes = new Funcoes();
+        checkoutPage = new CheckoutPage(driver);
     }
 
     //@AfterAll
