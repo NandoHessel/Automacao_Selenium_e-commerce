@@ -13,7 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <junit.version>5.8.2</junit.version>
         <hancrest.version>2.2</hancrest.version>
-        <selenium.version>4.1.2</selenium.version>
+        <selenium.version>4.1.3</selenium.version>
     </properties>
 
     <dependencies>
@@ -40,7 +40,20 @@
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
+        <dependency>
+            <groupId>record-base</groupId>
+            <artifactId>record-base</artifactId>
+            <version>0.2.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
+    <repositories>
+        <repository>
+            <id>clojars</id>
+            <name>Clojars</name>
+            <url>https://repo.clojars.org/</url>
+        </repository>
+    </repositories>
 
 </project>

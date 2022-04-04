@@ -16,4 +16,5 @@ public class Funcoes {
         texto = texto.replace(textoParaRemover, "");
         return texto;
     }
+
 }

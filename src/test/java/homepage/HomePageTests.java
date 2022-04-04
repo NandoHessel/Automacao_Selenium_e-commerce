@@ -185,6 +185,20 @@ public class HomePageTests extends BaseTests {
         assertThat(shippingDouble, is(7.00));
 
         checkoutPage.clicarContinuarShipping();
+
+        //clicar em Pay By check
+        checkoutPage.clicarPayByCheck();
+
+        // validar valor
+        String esperado_amountString = Funcoes.removeTexto(checkoutPage.obter_amount(),"(tax incl.)");
+        Double esperado_amountStringDouble = Funcoes.removeCifraoDevolveDouble(esperado_amountString);
+
+        assertThat(esperado_amountStringDouble, is(45.24));
+
+        //clicar em I Agree
+        checkoutPage.clicarIAgree();
+        assertTrue(checkoutPage.estaSelecionadoIAgree());
+
     }
 }
 
