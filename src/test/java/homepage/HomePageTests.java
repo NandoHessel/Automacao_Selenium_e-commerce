@@ -198,8 +198,32 @@ public class HomePageTests extends BaseTests {
         //clicar em I Agree
         checkoutPage.clicarIAgree();
         assertTrue(checkoutPage.estaSelecionadoIAgree());
+    }
+
+    @Test
+    public void finalizarPedido_pedidoFinalizadoComSucesso() {
+        //pré-condições
+        ///checkou concluído
+        testDadosFreteEPagamento();
+
+        //clicar no botão confirmar pedido
+        checkoutPage.clicarConfirmaPedido();
+        //validar valores da tela
+        assertTrue(pedidoPage.obter_textoConfirmação().endsWith("YOUR ORDER IS CONFIRMED"));
+
+        assertThat(pedidoPage.obter_emailUsuarioConectado(), is("fernando@email.com"));
+
+        assertThat(pedidoPage.obter_totalProducts(), is(38.24));
+
+        System.out.println(pedidoPage.obter_totalTaxIncl());
+        assertThat(pedidoPage.obter_totalTaxIncl(), is(45.24));
+
+        System.out.println(pedidoPage.obter_metodoPagamento());
+        assertThat(pedidoPage.obter_metodoPagamento(), is("check"));
+
 
     }
+
 }
 
 

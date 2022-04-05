@@ -16,6 +16,8 @@ public class CheckoutPage {
     private By payByCheck = By.cssSelector("input[id=\"payment-option-1\"]");
     private By valorAmount = By.cssSelector("#payment-option-1-additional-information > section > dl > dd:nth-child(2)");
     private By iAgree = By.cssSelector("input[id=\"conditions_to_approve[terms-and-conditions]\"]");
+    
+    private By btnconfirmaPedido = By.cssSelector("#payment-confirmation button");
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
@@ -56,5 +58,11 @@ public class CheckoutPage {
     public boolean estaSelecionadoIAgree() {
         return driver.findElement(iAgree).isSelected();
     }
+
+    public PedidoPage clicarConfirmaPedido () {
+        driver.findElement(btnconfirmaPedido).click();
+        return new PedidoPage(driver);
+    }
+
 
 }

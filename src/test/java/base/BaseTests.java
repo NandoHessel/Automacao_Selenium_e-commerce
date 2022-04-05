@@ -18,6 +18,8 @@ public class BaseTests {
     protected CarrinhoPage carrinhoPage;
     protected Funcoes funcoes;
     protected CheckoutPage checkoutPage;
+    protected PedidoPage pedidoPage;
+
 
     @BeforeAll
     public static void inicializar() {
@@ -36,6 +38,7 @@ public class BaseTests {
         carrinhoPage = new CarrinhoPage(driver);
         funcoes = new Funcoes();
         checkoutPage = new CheckoutPage(driver);
+        pedidoPage = new PedidoPage(driver);
     }
 
     //@AfterAll
