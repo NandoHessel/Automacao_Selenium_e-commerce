@@ -1,11 +1,17 @@
 package base;
 
+import com.google.common.io.Files;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import pages.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import util.Funcoes;
+
+import java.io.File;
+import java.io.IOException;
 
 public class BaseTests {
 
@@ -41,11 +47,30 @@ public class BaseTests {
         pedidoPage = new PedidoPage(driver);
     }
 
+    public void capturarTela(String nomeTeste, String resultado) {
+        var camera = (TakesScreenshot) driver;
+        File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
+        try {
+            Files.move(capturaDeTela, new File("resources/screenShots/" + nomeTeste + "_" + resultado + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void evidenciarPasso(String nome, String local) {
+        var camera = (TakesScreenshot) driver;
+        File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
+        try {
+            Files.move(capturaDeTela, new File(local + nome + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //@AfterAll
     //public static void finalizar() {
       //  driver.quit();
     //}
-
 }
 
 

@@ -20,6 +20,8 @@ public class HomePage {
 
     private By signin = By.cssSelector("a[title=\"Log in to your customer account");
 
+    private By signOut = By.cssSelector("a.logout");
+
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -60,7 +62,7 @@ public class HomePage {
         return new SigninPage(driver);
     }
 
-
-
-
+    public void clicarBotaoSignOut() {
+        driver.findElement(signOut).click();
+    }
 }

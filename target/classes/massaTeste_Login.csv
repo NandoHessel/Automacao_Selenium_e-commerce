@@ -1,0 +1,3 @@
+﻿nomeTeste;email;password;nomeUsuario;resultado
+loginValido;fernando@email.com;password;Fernando Hessel;positivo
+loginInvalido;fernando@email.com;teste123;Fernando Hessel;negativo
