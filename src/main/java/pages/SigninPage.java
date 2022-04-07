@@ -36,4 +36,8 @@ public class SigninPage {
     public boolean estaLogado(String texto) {
         return texto.contentEquals(driver.findElement(usuarioLogado).getText());
     }
+
+    public boolean estaLogado() {
+        return "Sign In".contentEquals(driver.findElement(usuarioLogado).getText());
+    }
 }

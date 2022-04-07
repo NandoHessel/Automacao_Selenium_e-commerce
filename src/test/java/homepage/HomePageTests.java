@@ -2,12 +2,8 @@ package homepage;
 
 import base.BaseTests;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.ProdutoPage;
-import pages.SigninPage;
 import util.Funcoes;
-
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -140,6 +136,7 @@ public class HomePageTests extends BaseTests {
         String subtotalProdutoRetornado = modalProdutoPage.obterSubtotal();
         subtotalProdutoRetornado = subtotalProdutoRetornado.replace("$", "");
         Double subtotal_Produto = Double.parseDouble(subtotalProdutoRetornado);
+
         assertThat(subtotal_Produto, is(subtotal));
     }
 
