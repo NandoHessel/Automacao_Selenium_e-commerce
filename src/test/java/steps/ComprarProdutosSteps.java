@@ -1,10 +1,15 @@
 package steps;
 
+import com.google.common.io.Files;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
@@ -12,6 +17,8 @@ import pages.ModalProdutoPage;
 import pages.ProdutoPage;
 import pages.SigninPage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -149,5 +156,16 @@ public class ComprarProdutosSteps {
 
         assertThat(subtotalEncontrado, is(subtotalCalculadoEsperado));
 
+    }
+
+    @After
+    public void capturarTela(Scenario scenario) { //screenShot com itens do Cucumber
+        TakesScreenshot camera = (TakesScreenshot) driver;
+        File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
+        try {
+            Files.move(capturaDeTela, new File("resources/screenShots/" + scenario.getName() + "_" + scenario.getStatus() + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

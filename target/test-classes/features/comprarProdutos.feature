@@ -34,4 +34,4 @@ Funcionalidade: Visualizar produtos
     Exemplos:
       | posicao | nomeProduto                   | precoProduto | tamanhoProduto | corProduto | quantidadeProduto |
       | 0       | "Hummingbird printed t-shirt" | "$19.12"     | "M"            | "Black"    | 2                 |
-      | 1       | "Hummingbird printed Swater"  | "$28.72      | "XL"           | "N/A"      | 3                 |
+      
